@@ -10,6 +10,7 @@ Gem::Specification.new do |gem|
   gem.authors       = 'oneapm'
   gem.email         = 'support@oneapm.com'
 
+  gem.licenses      = ['OneApm', 'MIT', 'Ruby']
   gem.summary       = 'OneApm Cloud Insight SDK'
   gem.description   = 'OneApm Cloud Insight SDK. (http://www.oneapm.com/ci/feature.html)'
   gem.homepage      = 'http://www.oneapm.com/ci/feature.html'
