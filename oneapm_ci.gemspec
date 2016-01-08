@@ -5,16 +5,16 @@ $:.push "#{File.expand_path('..', __FILE__)}/lib"
 require 'oneapm_ci/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "oneapm_ci"
+  gem.name          = 'oneapm_ci'
   gem.version       = OneapmCi::VERSION
-  gem.authors       = ["Oneapm, Inc."]
-  gem.email         = ["support@oneapm.com"]
+  gem.authors       = 'oneapm'
+  gem.email         = 'support@oneapm.com'
 
-  gem.summary       = %q{oneapm_ci oneapm}
-  gem.description   = %q{Ruby bindings to Oneapm's API and a user-facing command line tool.}
-  gem.homepage      = "http://www.oneapm.com/ci/feature.html"
+  gem.summary       = 'OneApm Cloud Insight SDK'
+  gem.description   = 'OneApm Cloud Insight SDK. (http://www.oneapm.com/ci/feature.html)'
+  gem.homepage      = 'http://www.oneapm.com/ci/feature.html'
 
-  gem.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|bin|features)/}) }
+  gem.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test\/|bin\/|Rakefile)}) }
 
   gem.require_paths = ['lib']
   gem.required_ruby_version = '>= 1.9'
