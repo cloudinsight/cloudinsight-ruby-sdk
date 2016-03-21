@@ -12,9 +12,9 @@ module OneapmCi
 
     #Init Statsd
     #  @statsd = OneapmCi::Statsd.new
-    #<String> host: the host of the OneStatsd server (default: 'localhost')
-    #<Fixnum> port: the port of the OneStatsd server (default: 8251)
-    #<Hash> option: 
+    #  <String> host: the host of the OneStatsd server (default: 'localhost')
+    #  <Fixnum> port: the port of the OneStatsd server (default: 8251)
+    #  <Hash> option: 
     #  <Fixnum>  option[:max_buffer_size]: Maximum number of metrics to buffer before sending to the server (default: 50)
     #  <Array>   option[:constant_tags]: Tags to attach to every metric reported by this client (default: [])     
     #  <Boolean> option[:use_ms]: Report timed values in milliseconds instead of seconds (default: false)

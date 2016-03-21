@@ -1,6 +1,4 @@
-# OneapmCi
-
-Sdk for oneapm ci.
+# OneApm Cloud Insight SDK
 
 ## Installation
 
@@ -26,9 +24,9 @@ Or install it yourself as:
 
     statsd = OneapmCi::Statsd.new
 
-    # Increment a counter.
+    #Increment a counter.
     statsd.increment('page.views')
 
     #Record a gauge 50% of the time.
     statsd.gauge('users.online', 100, ['users.onapm'], 0.5)
-end
+```
