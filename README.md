@@ -1,4 +1,4 @@
-# OneApm Cloud Insight SDK
+# Cloud Insight Ruby SDK
 
 ## Installation
 
@@ -20,13 +20,16 @@ Or install it yourself as:
 ## Quick Start Guide
 
 ```ruby
-    require 'oneapm_ci'
+  require 'oneapm_ci'
 
-    statsd = OneapmCi::Statsd.new
+  statsd = OneapmCi::Statsd.new
 
-    #Increment a counter.
-    statsd.increment('page.views')
+  #Increment a counter.
+  statsd.increment('page.views')
+  
+  #Record a gauge 100 of replies
+  statsd.gauge('blogs.replies', 100)
 
-    #Record a gauge 50% of the time.
-    statsd.gauge('users.online', 100, ['users.onapm'], 0.5)
+  #Record a gauge 50% of the time.
+  statsd.gauge('users.online', 100, ['users.oneapm'], 0.5)
 ```
