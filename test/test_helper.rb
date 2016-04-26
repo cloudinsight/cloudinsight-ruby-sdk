@@ -3,6 +3,6 @@
 require 'minitest/autorun'
 require 'minitest/reporters'
 require 'mocha/setup'
-require 'cloud_insight'
+require 'cloudinsight-sdk'
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new

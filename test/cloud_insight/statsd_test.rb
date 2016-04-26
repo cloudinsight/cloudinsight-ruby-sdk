@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require 'test_helper'
-require 'cloud_insight/statsd'
+require 'cloudinsight-sdk'
 
 class StatsdTest < Minitest::Test
   def setup
