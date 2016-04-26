@@ -3,22 +3,21 @@
 require 'socket'
 require 'logger'
 
-module OneapmCi
+module CloudInsight
   class Statsd
-
     attr_reader :socket, :buffer
 
     ENCODING = 'utf-8'.freeze
 
-    #Init Statsd
-    #  @statsd = OneapmCi::Statsd.new
+    # Init Statsd
+    #  @statsd = CloudInsight::Statsd.new
     #  <String> host: the host of the OneStatsd server (default: 'localhost')
     #  <Fixnum> port: the port of the OneStatsd server (default: 8251)
-    #  <Hash> option: 
+    #  <Hash> option:
     #  <Fixnum>  option[:max_buffer_size]: Maximum number of metrics to buffer before sending to the server (default: 50)
-    #  <Array>   option[:constant_tags]: Tags to attach to every metric reported by this client (default: [])     
+    #  <Array>   option[:constant_tags]: Tags to attach to every metric reported by this client (default: [])
     #  <Boolean> option[:use_ms]: Report timed values in milliseconds instead of seconds (default: false)
-    def initialize host='localhost', port=8251, option={}
+    def initialize(host = 'localhost', port = 8251, option = {})
       @host            = host
       @port            = port
       @buffer          = []
@@ -29,91 +28,92 @@ module OneapmCi
       exit_handler
     end
 
-    #Record the value of a gauge, optionally setting a list of tags and a sample rate.
+    # Record the value of a gauge, optionally setting a list of tags and a sample rate.
     #  @statsd.gauge('test.online', 8080)
     #  @statsd.gauge('test.online', 8080, ['test:online'], 0.8)
-    def gauge metric, value=1, tags=[], sample_rate=1
+    def gauge(metric, value = 1, tags = [], sample_rate = 1)
       report(metric, 'g', value, tags, sample_rate)
     end
 
-    #Increment a counter, optionally setting a value, tags and a sample rate.
+    # Increment a counter, optionally setting a value, tags and a sample rate.
     #  @statsd.increment('test.online', 1)
     #  @statsd.increment('test.online', 1, ['test:online'], 0.8)
-    def increment metric, value=1, tags=[], sample_rate=1
+    def increment(metric, value = 1, tags = [], sample_rate = 1)
       report(metric, 'c', value, tags, sample_rate)
     end
 
-    #Decrement a counter, optionally setting a value, tags and a sample rate.
+    # Decrement a counter, optionally setting a value, tags and a sample rate.
     #  @statsd.decrement('test.online', 1)
     #  @statsd.decrement('test.online', 1, ['test:online'], 0.8)
-    def decrement metric, value=1, tags=[], sample_rate=1
+    def decrement(metric, value = 1, tags = [], sample_rate = 1)
       report(metric, 'c', -value, tags, sample_rate)
     end
 
-    private 
+    private
 
-    def report metric, mtype, value, tags, sample_rate
-      return if sample_rate.to_f != 1.0 && rand() > sample_rate.to_f
+    def report(metric, mtype, value, tags, sample_rate)
+      return if sample_rate.to_f != 1.0 && rand > sample_rate.to_f
       data = convert(metric, mtype, value, tags, sample_rate)
       store_to_buffer data if data
     end
 
-    def convert metric, mtype, value, tags, sample_rate
+    def convert(metric, mtype, value, tags, sample_rate)
       data = []
       data << "#{metric}:#{value}"
-      data << "#{mtype}"
+      data << mtype.to_s
       data << "@#{sample_rate.to_f}"
       data << "##{tags.join(',')}" unless (tags += @constant_tags).empty?
-      data.join("|").encode(ENCODING) rescue nil
+      begin
+        data.join('|').encode(ENCODING)
+      rescue
+        nil
+      end
     end
 
-    def store_to_buffer data
+    def store_to_buffer(data)
       @buffer << data
       flush_buffer if @buffer.size >= @max_buffer_size
     end
 
-    def flush_buffer 
+    def flush_buffer
       buffer_old = @buffer
       @buffer = []
-      send_to_agent{|socket| socket.send(buffer_old.join("\n"), 0)} if buffer_old.size > 0
+      send_to_agent { |socket| socket.send(buffer_old.join("\n"), 0) } unless buffer_old.empty?
     end
 
-    def send_to_agent 
-      begin
-        yield socket
-      rescue => e
-        logger.error "send to agent server error: #{e.inspect}"
-      end
+    def send_to_agent
+      yield socket
+    rescue => e
+      logger.error "send to agent server error: #{e.inspect}"
     end
 
     def socket
       @socket ||= begin
-        _socket_ = UDPSocket.new  
-        _socket_.connect @host, @port
-        _socket_
+        UDPSocket.new.tap do |udp_socket|
+          udp_socket.connect @host, @port
+        end
       end
     end
 
     def logger
       @logger ||= begin
-        log = Logger.new(STDOUT)
-        log.level = Logger::INFO
-        log.datetime_format = "%Y-%m-%d %H:%M:%S"
-        log
-      end
-    end
-
-    #flush buffer on exit
-    def exit_handler
-      at_exit do 
-         begin
-          flush_buffer
-          socket.close
-        rescue => e
-          logger.error "close sokcet error: #{e.inspect}"
+        Logger.new(STDOUT).tap do |log|
+          log.level = Logger::INFO
+          log.datetime_format = '%Y-%m-%d %H:%M:%S'
         end
       end
     end
 
-  end  
+    # flush buffer on exit
+    def exit_handler
+      at_exit do
+        begin
+         flush_buffer
+         socket.close
+       rescue => e
+         logger.error "close sokcet error: #{e.inspect}"
+       end
+      end
+    end
+  end
 end

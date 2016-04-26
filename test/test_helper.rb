@@ -3,7 +3,6 @@
 require 'minitest/autorun'
 require 'minitest/reporters'
 require 'mocha/setup'
-require 'oneapm_ci'
+require 'cloud_insight'
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
-

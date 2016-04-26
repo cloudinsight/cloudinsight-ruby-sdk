@@ -1,5 +1,4 @@
-# source 'https://rubygems.org'
-source 'https://ruby.taobao.org'
+source 'https://gems.ruby-china.org'
 
-# Specify your gem's dependencies in oneapm_ci.gemspec
+# Specify your gem's dependencies in cloudinsight.gemspec
 gemspec

@@ -5,7 +5,7 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'oneapm_ci'
+  gem 'cloudinsight-sdk'
 ```
 
 And then execute:
@@ -14,15 +14,15 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install oneapm_ci
+    $ gem install cloudinsight-sdk
 
 
 ## Quick Start Guide
 
 ```ruby
-  require 'oneapm_ci'
+  require 'cloudinsight-sdk'
 
-  statsd = OneapmCi::Statsd.new
+  statsd = CloudInsight::Statsd.new
 
   #Increment a counter.
   statsd.increment('page.views')
@@ -31,5 +31,7 @@ Or install it yourself as:
   statsd.gauge('blogs.replies', 100)
 
   #Record a gauge 50% of the time.
-  statsd.gauge('users.online', 100, ['users.oneapm'], 0.5)
+  statsd.gauge('users.online', 100, ['users.cloudinsight'], 0.5)
 ```
+
+document see: [http://docs-ci.oneapm.com/api/ruby.html](http://docs-ci.oneapm.com/api/ruby.html)

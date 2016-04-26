@@ -1,21 +1,21 @@
 # encoding: utf-8
 
-$:.push "#{File.expand_path('..', __FILE__)}/lib"
+$LOAD_PATH.push "#{File.expand_path('..', __FILE__)}/lib"
 
-require 'oneapm_ci/version'
+require 'cloud_insight/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = 'oneapm_ci'
-  gem.version       = OneapmCi::VERSION
-  gem.authors       = 'oneapm'
+  gem.name          = 'cloudinsight-sdk'
+  gem.version       = CloudInsight::VERSION
+  gem.authors       = 'cloudinsight'
   gem.email         = 'support@oneapm.com'
 
-  gem.licenses      = ['OneApm', 'MIT', 'Ruby']
-  gem.summary       = 'OneApm Cloud Insight SDK'
-  gem.description   = 'OneApm Cloud Insight SDK. (http://www.oneapm.com/ci/feature.html)'
+  gem.licenses      = %w(CloudInsight MIT Ruby)
+  gem.summary       = 'Cloud Insight SDK'
+  gem.description   = 'Cloud Insight SDK. (http://www.oneapm.com/ci/feature.html)'
   gem.homepage      = 'http://www.oneapm.com/ci/feature.html'
 
-  gem.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test\/|bin\/|Rakefile)}) }
+  gem.files         = Dir['lib/**/*.rb', 'examples/**/*.rb']
 
   gem.require_paths = ['lib']
   gem.required_ruby_version = '>= 1.9'
@@ -24,4 +24,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'minitest-reporters', '~> 1.0'
   gem.add_development_dependency 'mocha', '~> 0.13'
   gem.add_development_dependency 'pry', '~> 0.9'
+  gem.add_development_dependency 'rubocop', '~> 0.39'
 end
