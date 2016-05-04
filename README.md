@@ -1,6 +1,5 @@
 # Cloud Insight Ruby SDK
 
-
 [![Code Climate](https://codeclimate.com/github/cloudinsight/cloudinsight-ruby-sdk/badges/gpa.svg)](https://codeclimate.com/github/cloudinsight/cloudinsight-ruby-sdk)
 
 ## Installation
