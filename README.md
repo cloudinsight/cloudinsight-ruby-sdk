@@ -1,5 +1,6 @@
 # Cloud Insight Ruby SDK
 
+[![Build Status](https://api.travis-ci.org/cloudinsight/cloudinsight-ruby-sdk.svg?branch=master)](http://travis-ci.org/cloudinsight/cloudinsight-ruby-sdk)
 [![Code Climate](https://codeclimate.com/github/cloudinsight/cloudinsight-ruby-sdk/badges/gpa.svg)](https://codeclimate.com/github/cloudinsight/cloudinsight-ruby-sdk)
 
 ## Installation
