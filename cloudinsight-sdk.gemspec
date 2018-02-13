@@ -24,5 +24,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'minitest-reporters', '~> 1.0'
   gem.add_development_dependency 'mocha', '~> 0.13'
   gem.add_development_dependency 'pry', '~> 0.9'
-  gem.add_development_dependency 'rubocop', '~> 0.39'
+  gem.add_development_dependency 'rubocop', '~> 0.49.0'
 end
